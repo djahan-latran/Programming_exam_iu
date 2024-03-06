@@ -55,6 +55,7 @@ class TrainFunctions:
             self.y_max = max(self.dataframe.max()[1:])
             self.y_min = min(self.dataframe.min()[1:])
 
+
         except FileNotFoundError:
 
             print(f"File '{self.filename}' does not exist in the folder '{self.folder}'" \
