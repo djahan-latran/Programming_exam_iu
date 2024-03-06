@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import mysql.connector
 import os
 
-
+"""Main Commit"""
 class TrainFunctions:
     """
     The TrainFunctions class is used to construct, \
