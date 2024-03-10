@@ -3,7 +3,7 @@ import pandas as pd
 class DfConstructor:
 
     def construct_df(self,filepath):
-        df = pd.read_csv(filepath)
+        dataframe = pd.read_csv(filepath)
 
-        return df
+        return dataframe
 
