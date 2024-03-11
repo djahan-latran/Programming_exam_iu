@@ -85,9 +85,9 @@ class DataAnalyzer(DfConstructor):
 
                 new_dataframe = self.construct_validation_df(ideal_func_name=ideal_func_name)
 
-                for i in range(len(self.train_data)):
-                    x_val_test = self.train_data.iloc[i, 0]
-                    y_val_test = self.train_data.iloc[i, 1]
+                for i in range(len(self.test_data)):
+                    x_val_test = self.test_data.iloc[i, 0]
+                    y_val_test = self.test_data.iloc[i, 1]
 
                     x_val_ideal_idx = (self.ideal_data.iloc[:, 0] == x_val_test).idxmax()
                     y_val_ideal = self.ideal_data.iloc[x_val_ideal_idx, int(ideal_idx)]
@@ -113,5 +113,7 @@ class DataAnalyzer(DfConstructor):
 
             return self.dfs_filtered_pts
 
-        return least_square()
+        validation = least_square()
+
+        return validation
     
