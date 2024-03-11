@@ -11,6 +11,6 @@ class FileLoader(DfConstructor):
     def load_and_construct_file(self):
         self.filepath = os.path.join(self.foldername,self.filename)
 
-        loaded_file = self.construct_df(filepath=self.filepath)
+        loaded_file = self.construct_df_from_file(filepath= self.filepath)
 
         return loaded_file

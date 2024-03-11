@@ -10,10 +10,18 @@ class ProgramExecutor:
     def execute_program(self):
 
         data = DataAnalyzer(train_folder="datensaetze", train_file="train.csv",
-                            ideal_folder="datensaetze", ideal_file="ideal.csv")
+                            ideal_folder="datensaetze", ideal_file="ideal.csv",
+                            test_folder="datensaetze", test_file="test.csv"
+                            )
+
         train_data = data.load_train_data()
         ideal_data = data.load_ideal_data()
-        print(train_data)
+        bestfit = data.find_bestfit()
+        test_data = data.load_test_data()
+        filtered_data = data.test_point_validation()
+        print(filtered_data)
+
+
 
 if __name__ == "__main__":
     program = ProgramExecutor()

@@ -3,8 +3,9 @@ import pandas as pd
 from df_constructor import DfConstructor
 from file_loader import FileLoader
 
-class DataAnalyzer:
+class DataAnalyzer(DfConstructor):
 
+    # initiate with parameters set to 'None', so different data can be loaded/added at different times
     def __init__(self, train_folder= None, train_file= None,
                  ideal_folder= None, ideal_file= None,
                  test_folder= None, test_file= None):
@@ -16,6 +17,7 @@ class DataAnalyzer:
         self.test_folder = test_folder
         self.test_file = test_file
 
+        # create instances of FileLoader to load the train-/ideal- and testdata
         self.train_data_loader = FileLoader(foldername= self.train_folder,
                                             filename= self.train_file)
         self.ideal_data_loader = FileLoader(foldername= self.ideal_folder,
@@ -24,59 +26,92 @@ class DataAnalyzer:
                                            filename= self.test_file)
 
     def load_train_data(self):
-        train_data = self.train_data_loader.load_and_construct_file()
+        self.train_data = self.train_data_loader.load_and_construct_file()
 
-        return train_data
+        return self.train_data
 
     def load_ideal_data(self):
-        ideal_data = self.ideal_data_loader.load_and_construct_file()
+        self.ideal_data = self.ideal_data_loader.load_and_construct_file()
 
-        return ideal_data
+        return self.ideal_data
 
     def load_test_data(self):
-        test_data = self.test_data_loader.load_and_construct_file()
+        self.test_data = self.test_data_loader.load_and_construct_file()
 
-        return test_data
+        return self.test_data
 
     def find_bestfit(self):
-        pass
 
+        self.bestfit_dict = {}
 
+        count_train_func = self.train_data.shape[1]
+        count_ideal_func = self.ideal_data.shape[1]
 
-        # self.bestfit = {}
-        #
-        # count_train_func = self.dataframe.shape[1]
-        # count_ideal_func = ideal.dataframe.shape[1]
-        #
-        # for i in range(1, count_train_func):
-        #
-        #     min_diff = float("inf")
-        #     curr_tfunc_idx = i
-        #
-        #     for j in range(1, count_ideal_func):
-        #
-        #         curr_diff = abs(self.dataframe.iloc[:, i] - ideal.dataframe.iloc[:, j])
-        #         curr_diff_sum = curr_diff.sum()
-        #
-        #         min_diff = min(min_diff, curr_diff_sum)
-        #
-        #         if min_diff == curr_diff_sum:
-        #             best_fit_idx = j
-        #
-        #     self.bestfit[f"{curr_tfunc_idx}"] = best_fit_idx
-        #
-        # if len(self.bestfit) == 0:
-        #     print("There are no best fits.")
-        #
-        # else:
-        #     return self.bestfit
+        for i in range(1, count_train_func):
+
+            min_diff = float("inf")
+            curr_tfunc_idx = i
+
+            for j in range(1, count_ideal_func):
+
+                curr_diff = abs(self.train_data.iloc[:, i] - self.ideal_data.iloc[:, j])
+                curr_diff_sum = curr_diff.sum()
+
+                min_diff = min(min_diff, curr_diff_sum)
+
+                if min_diff == curr_diff_sum:
+                    best_fit_idx = j
+
+            self.bestfit_dict[f"{curr_tfunc_idx}"] = best_fit_idx  # stores both indexes of the train-func \
+                                                                   # and the 'best-fitting'  ideal-func
+
+        if len(self.bestfit_dict) == 0:
+            print("There are no best fits.")
+
+        else:
+            return self.bestfit_dict
 
 
     def test_point_validation(self):
 
         def least_square():
-            pass
 
-        #least_square()
-        pass
+            self.filtered_pts = set()  # stores individual filtered points without duplicates
+            self.dfs_filtered_pts = []  # stores a dataframe for each train-func and the points that belong to it
+
+
+            for train_idx, ideal_idx in self.bestfit_dict.items():
+                ideal_func_name = self.ideal_data.columns[int(ideal_idx)]
+
+                new_dataframe = self.construct_validation_df(ideal_func_name=ideal_func_name)
+
+                for i in range(len(self.train_data)):
+                    x_val_test = self.train_data.iloc[i, 0]
+                    y_val_test = self.train_data.iloc[i, 1]
+
+                    x_val_ideal_idx = (self.ideal_data.iloc[:, 0] == x_val_test).idxmax()
+                    y_val_ideal = self.ideal_data.iloc[x_val_ideal_idx, int(ideal_idx)]
+
+                    y_coords_diff = (abs(y_val_test - y_val_ideal)) ** 2
+
+                    max_distance = np.sqrt(2) * y_val_test
+
+                    if y_coords_diff < max_distance:
+                        new_row = {"Y": x_val_test, "X": y_val_test, "Delta Y": y_coords_diff,
+                                   f"{ideal_func_name}": y_val_ideal
+                                   }
+                        new_dataframe = new_dataframe.append(new_row, ignore_index=True)
+
+                        testpoint = [x_val_test, y_val_test]
+
+                        self.filtered_pts.add(tuple(testpoint))
+
+                    else:
+                        continue
+
+                self.dfs_filtered_pts.append(new_dataframe)
+
+            return self.dfs_filtered_pts
+
+        return least_square()
     

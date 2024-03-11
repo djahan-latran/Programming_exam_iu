@@ -5,4 +5,5 @@ import pandas as dp
 class Graphics:
 
     def plot_figure(self):
-        pass
+
+        fig, plots = plt.subplots(2,2)
