@@ -77,8 +77,8 @@ class DataAnalyzer(DfConstructor):
         def least_square():
 
             self.filtered_pts = set()  # stores individual filtered points without duplicates
-            self.dfs_filtered_pts = []  # stores a dataframe for each train-func and the points that belong to it
 
+            self.df_filtered_pts = pd.DataFrame(columns=["X", "Y", "Delta Y", "Ideal function name"])
 
             for train_idx, ideal_idx in self.bestfit_dict.items():
                 ideal_func_name = self.ideal_data.columns[int(ideal_idx)]
@@ -97,10 +97,10 @@ class DataAnalyzer(DfConstructor):
                     max_distance = np.sqrt(2) * y_val_test
 
                     if y_coords_diff < max_distance:
-                        new_row = {"Y": x_val_test, "X": y_val_test, "Delta Y": y_coords_diff,
-                                   f"{ideal_func_name}": y_val_ideal
+                        new_row = {"X": x_val_test, "Y": y_val_test, "Delta Y": y_coords_diff,
+                                   "Ideal function name": ideal_func_name
                                    }
-                        new_dataframe = new_dataframe.append(new_row, ignore_index=True)
+                        self.df_filtered_pts = self.df_filtered_pts.append(new_row, ignore_index=True)
 
                         testpoint = [x_val_test, y_val_test]
 
@@ -109,11 +109,8 @@ class DataAnalyzer(DfConstructor):
                     else:
                         continue
 
-                self.dfs_filtered_pts.append(new_dataframe)
-
-            return self.dfs_filtered_pts
+            return self.df_filtered_pts
 
         validation = least_square()
 
         return validation
-    

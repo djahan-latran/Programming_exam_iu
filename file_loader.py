@@ -1,4 +1,3 @@
-import pandas as pd
 from df_constructor import DfConstructor
 import os
 
