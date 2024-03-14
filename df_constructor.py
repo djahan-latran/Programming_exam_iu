@@ -3,12 +3,17 @@ import pandas as pd
 class DfConstructor:
 
     def construct_df_from_file(self,filepath):
-        df = pd.read_csv(filepath)
 
-        return df
+        try:
+            df = pd.read_csv(filepath)
+            return df
 
-    def construct_validation_df(self,ideal_func_name):
-        validation_df = pd.DataFrame(columns=["X","Y","Delta Y",f"{ideal_func_name}"])
+        except FileNotFoundError:
+            raise FileNotFoundError(f"File could not be found in {filepath}")
+
+    def construct_validation_df(self):
+
+        validation_df = pd.DataFrame(columns=["X", "Y", "Delta Y", "Ideal function name"])
 
         return validation_df
 

@@ -26,9 +26,17 @@ class DataAnalyzer(DfConstructor):
                                            filename= self.test_file)
 
     def load_train_data(self):
-        self.train_data = self.train_data_loader.load_and_construct_file()
+        try:
+            self.train_data = self.train_data_loader.load_and_construct_file()
 
-        return self.train_data
+            return self.train_data
+
+        except AttributeError as e:
+            print("The data is missing an attribute. "
+                  "Make sure that DataAnalyzer has attributes "
+                  "'train_folder' and 'train_file'.", e)
+
+
 
     def load_ideal_data(self):
         self.ideal_data = self.ideal_data_loader.load_and_construct_file()
@@ -78,12 +86,10 @@ class DataAnalyzer(DfConstructor):
 
             self.filtered_pts = set()  # stores individual filtered points without duplicates
 
-            self.df_filtered_pts = pd.DataFrame(columns=["X", "Y", "Delta Y", "Ideal function name"])
+            self.df_filtered_pts = self.construct_validation_df()
 
             for train_idx, ideal_idx in self.bestfit_dict.items():
                 ideal_func_name = self.ideal_data.columns[int(ideal_idx)]
-
-                new_dataframe = self.construct_validation_df(ideal_func_name=ideal_func_name)
 
                 for i in range(len(self.test_data)):
                     x_val_test = self.test_data.iloc[i, 0]
@@ -92,7 +98,7 @@ class DataAnalyzer(DfConstructor):
                     x_val_ideal_idx = (self.ideal_data.iloc[:, 0] == x_val_test).idxmax()
                     y_val_ideal = self.ideal_data.iloc[x_val_ideal_idx, int(ideal_idx)]
 
-                    y_coords_diff = (abs(y_val_test - y_val_ideal)) ** 2
+                    y_coords_diff = (y_val_test - y_val_ideal) ** 2
 
                     max_distance = np.sqrt(2) * y_val_test
 
