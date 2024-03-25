@@ -9,11 +9,13 @@ class DfConstructor:
             return df
 
         except FileNotFoundError:
-            raise FileNotFoundError(f"File could not be found in {filepath}")
+            raise FileNotFoundError("File or path does not exist!")
 
     def construct_validation_df(self):
 
-        validation_df = pd.DataFrame(columns=["X", "Y", "Delta Y", "Ideal function name"])
+        try:
+            validation_df = pd.DataFrame(columns=["X", "Y", "Delta Y", "Ideal function name"])
+            return validation_df
 
-        return validation_df
-
+        except Exception as e:
+            print(f"Error: {e}")
