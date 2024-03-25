@@ -7,21 +7,15 @@ class FileLoader(DfConstructor):
         self.foldername = foldername
         self.filename = filename
 
-    def load_and_construct_file(self):
+    def load_and_construct_csv(self):
 
-        try:
-            self.filepath = os.path.join(self.foldername, self.filename)
+        if self.filename is None or self.foldername is None:
+            raise AttributeError("Missing attribute 'foldername' or 'filename'.")
 
-            if not self.filename.endswith(".csv"):
-                raise ValueError("The file is not a csv file")
+        if not self.filename.endswith(".csv"):
+            raise ValueError("The file must be a csv-file and end with '.csv'")
 
-            loaded_file = self.construct_df_from_file(filepath=self.filepath)
+        self.filepath = os.path.join(self.foldername, self.filename)
+        loaded_file = self.construct_df_from_file(filepath=self.filepath)
 
-            return loaded_file
-
-        except FileNotFoundError as e:
-            print(f"Error: {e}")
-
-        except ValueError as e:
-            print(f"Error: {e}")
-
+        return loaded_file
