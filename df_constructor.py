@@ -1,4 +1,6 @@
 import pandas as pd
+from exceptions import DataframeTypeError
+
 
 class DfConstructor:
 
@@ -6,6 +8,10 @@ class DfConstructor:
 
         try:
             df = pd.read_csv(filepath)
+
+            if not isinstance(df, pd.DataFrame):
+                raise DataframeTypeError("Something went wrong "
+                                         "while constructing the dataframe")
             return df
 
         except FileNotFoundError:
@@ -15,6 +21,10 @@ class DfConstructor:
 
         try:
             validation_df = pd.DataFrame(columns=["X", "Y", "Delta Y", "Ideal function name"])
+
+            if not isinstance(validation_df, pd.DataFrame):
+                raise DataframeTypeError("Something went wrong "
+                                         "while constructing the dataframe")
             return validation_df
 
         except Exception as e:

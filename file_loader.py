@@ -1,6 +1,7 @@
 from df_constructor import DfConstructor
 import os
 
+
 class FileLoader(DfConstructor):
 
     def __init__(self, foldername, filename):
@@ -19,3 +20,4 @@ class FileLoader(DfConstructor):
         loaded_file = self.construct_df_from_file(filepath=self.filepath)
 
         return loaded_file
+

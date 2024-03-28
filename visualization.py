@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 from exceptions import InvalidDataError, DataframeTypeError
 import pandas as pd
+
+
 class Graphics:
 
     def plot_train_data(self,data):
