@@ -128,6 +128,7 @@ class DataAnalyzer(DfConstructor):
                                                                        # and the 'best-fitting'  ideal-func
         except AttributeError as e:
             print(f"Error: Please make sure train- and ideal data are loaded. {e}")
+            raise
 
         except KeyError as e:
             print(f"Error: The data doesn't have the proper structure. "
