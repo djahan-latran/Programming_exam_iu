@@ -1,7 +1,7 @@
 import unittest
 from file_loader import FileLoader
 
-#needs fixing
+
 class TestFileLoader(unittest.TestCase):
 
     def test_load_and_construct_csv_attribute(self):
@@ -15,7 +15,7 @@ class TestFileLoader(unittest.TestCase):
 
     def test_load_and_construct_csv_file_format(self):
 
-        foldername = "datensaetze"
+        foldername = "test_files"
         filename = "unittest_fileloader.txt"
         fileloader = FileLoader(foldername=foldername, filename=filename)
 
@@ -24,8 +24,8 @@ class TestFileLoader(unittest.TestCase):
 
     def test_load_and_construct_csv_file(self):
 
-        foldername = "datensaetze"
-        filename = "train.csv"
+        foldername = "test_files"
+        filename = "test_df.csv"
 
         fileloader = FileLoader(foldername=foldername, filename=filename)
         file = fileloader.load_and_construct_csv()
