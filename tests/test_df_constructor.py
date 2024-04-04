@@ -1,7 +1,7 @@
 import unittest
+import pandas as pd
 from df_constructor import DfConstructor
 
-# needs fixing
 
 class TestDfConstructor(unittest.TestCase):
 
@@ -16,9 +16,8 @@ class TestDfConstructor(unittest.TestCase):
         df = DfConstructor()
         validation_df = df.construct_validation_df()
 
-        self.assertIsNotNone(validation_df)
+        self.assertIsInstance(validation_df, pd.DataFrame)
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
