@@ -1,37 +1,8 @@
-Das Repository beinhaltet ein Programm, das selbstständig entwickelt wurde um folgende Aufgabenstellung zu lösen: 
-
-"Deine Aufgabe ist, ein Python Programm zu schreiben, welches mittels der vier Trainingsdatensätze (A) die vier besten Passungen / Fits aus dem Datensatz von 50 idealen Funktionen (C) findet. 
-Die folgenden Kriterien sollen beachtet werden:
-1. Das Kriterium zur Selektion idealer Funktionen für den Training-Datensatz ist die Minimierung der Summe aller quadratischen y-Abweichungen (Least-Square).
-2. Dein Programm muss den Test-Datensatz B zur Validierung der Selektion benutzen. Hierbei soll für jedes x-y-Paar im Test-Datensatz überprüft werden, ob die Werte zu den vier idealen Funktionen passen.
-a. Benutze ein Kriterium, welches sicherstellt, dass die maximale Abweichung zwischen der vorher ermittelten idealen Funktion und den Testwerten nicht die maximale Abweichung
-zwischen den Trainingsdaten (A) und den vier idealen Funktionen aus (C) um mehr als den Faktor Wurzel aus zwei (sqrt(2)) übersteigt.
-b. Sollten die Testdaten an die von Dir gefundenen vier Funktionen anpassbar sein, speichere für jeden Testdatensatz die entsprechenden Abweichungen ab.
-4. Alle Daten sollten logisch visualisiert werden.
-5. Schreibe Unit-Tests, wo immer möglich.
-Um Deine im Kurs erlernten Fähigkeiten unter Beweis zu stellen, musst Du die im folgenden Kapitel (Details) dargestellten Kriterien erfüllen.
-
-Details
-Datenbank und Tabellen
-• Du erhältst vier Trainingsdatensätze in Form von CSV-Dateien. 
-Dein Python-Programm muss in der Lage sein, eine SQLite-Datenbank (Datei) idealerweise über sqlalchemy unabhängig zu kompilieren und die Trainingsdaten in eine einzelne, 
-fünfspaltige Tabelle zu laden. Die erste Spalte zeigt die x-Werte aller Funktionen. 
-Tabelle 1 am Ende dieses Unterabschnitts zeigt Dir, welche Struktur Deine Tabelle voraussichtlich haben wird.
-• Die fünfzig idealen Funktionen, die auch über eine CSV-Datei bereitgestellt werden, müssen in eine andere Tabelle geladen werden. 
-Ebenso zeigt die erste Spalte die x-Werte, was bedeutet, dass insgesamt 51 Spalten vorhanden sind. Tabelle 2 am Ende dieses Unterabschnitts beschreibt schematisch, 
-welche Struktur erwartet wird.
-• Nachdem die Trainingsdaten und die idealen Funktionen in die Datenbank geladen wurden, 
-müssen die Testdaten (B) Zeile für Zeile aus einer anderen CSV-Datei geladen und - wenn sie das Kriterium im Unterabschnitt 2 erfüllt - mit einer der vier abgeglichen Funktionen abgespeichert werden.
-• Anschließend müssen die Ergebnisse in einer anderen vierspaltigen Tabelle in der SQLite-Datenbank gespeichert werden. 
-Gemäß Tabelle 3 am Ende dieses Unterabschnitts enthält diese Tabelle vier Spalten mit x- und y-Werten sowie die entsprechend gewählte ideale Funktion und die damit verbundene Abweichung.
-• Schließlich werden die Trainingsdaten, die Testdaten, die gewählten Idealfunktionen sowie die entsprechenden / zugewiesenen Datensätze unter einer entsprechend gewählten Darstellung der Abweichung visualisiert.
-
-Struktur des Python Programms
-• Das Programm soll soweit wie möglich Objekt-orientiert sein.
-• Es soll mindestens eine Vererbungshierarchie (inheritance) haben.
-• Benutze sowohl Standard als auch user-definiertes Exception Handling.
-• Für die Programmlogik solltest Du Pandas benutzen, aber auch Visualisierung mittels Bokeh, matlibplot etc.
-• Schreibe Unit-Tests, wo immer es sich anbietet.
-• Dokumentiere Dein Programm vollständig und mache von docstrings Gebrauch.
-Verwendung von Git
-• Bitte verwende Git zur Versionskontrolle Deines Codes."
+In der Aufgabe ging es darum, ein Python-Programm zu entwickeln, das Trainingsdaten, ideale Funktionen und Testdaten aus CSV-Dateien analysiert und verarbeitet.
+Der Fokus lag darauf, vier ideale Funktionen zu finden, die am besten zu den Trainingsdaten passen, basierend auf der Minimierung der quadratischen Abweichungen (Least-Square-Kriterium). 
+Anschließend sollten die Testdaten geprüft werden, ob sie zu diesen idealen Funktionen passen, wobei ein Abweichungskriterium einzuhalten war. 
+Passende Testdaten und ihre Abweichungen mussten in einer SQLite-Datenbank gespeichert werden.
+Zusätzlich sollten alle relevanten Daten und Ergebnisse – wie die Trainingsdaten, Testdaten, idealen Funktionen und Abweichungen – grafisch dargestellt werden. 
+Das Programm musste objektorientiert aufgebaut sein, mindestens eine Vererbungshierarchie enthalten, 
+Exception-Handling nutzen und Pandas für die Datenverarbeitung sowie Matplotlib oder ähnliche Tools für die Visualisierung einsetzen. Außerdem waren Unit-Tests und eine umfassende Dokumentation mit docstrings notwendig,
+und die Versionskontrolle sollte über Git erfolgen. Ziel war es, die Schritte eines datenanalytischen Softwareprojekts professionell umzusetzen und nachvollziehbar zu machen.
